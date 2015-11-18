@@ -16,6 +16,10 @@ Gradient::GRD.parse("./kiwi.grd")
 #     #<Gradient::Point:0x007fae248a92b8 @color=RGB [#a0cb1b], @location=0.84>,
 #     #<Gradient::Point:0x007fae248a9268 @color=RGB [#f3f56e], @location=0.927>,
 #     #<Gradient::Point:0x007fae248a9218 @color=RGB [#ffffff], @location=1.0>
+#   ],
+#   @opacity_points=[
+#     #<Gradient::OpacityPoint:0x007fb32116c700 @location=0.0, @opacity=100.0>,
+#     #<Gradient::OpacityPoint:0x007fb32116c6b0 @location=1.0, @opacity=100.0>
 #   ]>
 # }
 ```

@@ -32,10 +32,13 @@ module Gradient
 
       @gradient_names = []
       @color_gradients = []
+      @transparency_gradients = []
 
       @current_object_name = ""
       @current_color_gradient = []
+      @current_transparency_gradient = []
       @current_color = {}
+      @current_transparency = {}
 
       @shift = 0
 
@@ -55,7 +58,13 @@ module Gradient
         end
       end
 
-      gradients = color_gradients.map do |color_points|
+      transparency_gradients = @transparency_gradients.map do |gradient|
+        clean_transparency_gradient(gradient).map do |transparency_step|
+          Gradient::OpacityPoint.new(*transparency_step)
+        end
+      end
+
+      gradients = color_gradients.zip(transparency_gradients).map do |color_points|
         Gradient::Map.new(*color_points)
       end
 
@@ -66,9 +75,11 @@ module Gradient
       locations = steps.map { |g| g["Lctn"] }
       min_location = locations.min
       max_location = locations.max
+
       locations = locations.map do |location|
         ((location - min_location) * (1.0 / (max_location - min_location))).round(3)
       end
+    end
 
     private def clean_color_gradient(steps)
       locations = clean_gradient(steps)
@@ -78,6 +89,16 @@ module Gradient
       locations.zip(colors)
     end
 
+    private def clean_transparency_gradient(steps)
+      locations = clean_gradient(steps)
+      transparencies = steps.map do |step|
+        convert_to_opacity(step)
+      end
+      locations.zip(transparencies)
+    end
+
+    private def convert_to_opacity(opacity_data)
+      opacity_data["Opct"]
     end
 
     private def convert_to_color(color_data)
@@ -147,13 +168,21 @@ module Gradient
 
     private def flush_current_gradient
       flush_current_color
+      flush_current_transparency
       @color_gradients << @current_color_gradient if @current_color_gradient.any?
+      @transparency_gradients << @current_transparency_gradient if @current_transparency_gradient.any?
       @current_color_gradient = []
+      @current_transparency_gradient = []
     end
 
     private def flush_current_color
       @current_color_gradient << @current_color if @current_color.any?
       @current_color = {}
+    end
+
+    private def flush_current_transparency
+      @current_transparency_gradient << @current_transparency if @current_transparency.any?
+      @current_transparency = {}
     end
 
     private def parse_patt(name)
@@ -245,6 +274,11 @@ module Gradient
         @current_color[name.strip] = value
       end
 
+      if @current_object_name == "Trns" && name == "Opct" && type == "#Prc"
+        flush_current_transparency
+        @current_transparency[name.strip] = value
+      end
+
       continue!(12)
     end
 
@@ -260,6 +294,10 @@ module Gradient
 
       if @current_object_name == "Clr" && name == "Lctn"
         @current_color[name.strip] = size
+      end
+
+      if @current_object_name == "Trns" && name == "Lctn"
+        @current_transparency[name.strip] = size
       end
 
       continue!
