@@ -10,7 +10,7 @@ You are able to parse `.grd` files and turn them in to a hash of `Gradient::Map`
 ```ruby
 Gradient::GRD.parse("./kiwi.grd")
 # => {"Kiwi" => <Gradient::Map:0x00000000000000
-#   @points=[
+#   @color_points=[
 #     #<Gradient::Point:0x007fae248a9358 @color=RGB [#3d1103], @location=0.0>,
 #     #<Gradient::Point:0x007fae248a9308 @color=RGB [#29860d], @location=0.386>,
 #     #<Gradient::Point:0x007fae248a92b8 @color=RGB [#a0cb1b], @location=0.84>,
