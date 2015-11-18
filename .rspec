@@ -1,0 +1,4 @@
+--require helper
+--format documentation
+--color
+--tty
