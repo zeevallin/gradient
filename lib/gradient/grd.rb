@@ -1,7 +1,6 @@
 module Gradient
   class GRD
 
-    SHIFT_BUFFER = "                                    "
     COLOR_TERMS = %w(Cyn Mgnt Ylw Blck Rd Grn Bl H Strt Brgh)
     PARSE_METHODS = {
       "patt" => :parse_patt,
