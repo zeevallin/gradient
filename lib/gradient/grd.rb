@@ -49,30 +49,35 @@ module Gradient
       parse_entry while @offset < @buffer.length
       flush_current_gradient
 
-      gradients = @color_gradients.map do |gradient|
-        color_points = clean_gradient(gradient).map do |point_data|
-          Gradient::ColorPoint.new(*point_data)
+      color_gradients = @color_gradients.map do |gradient|
+        clean_color_gradient(gradient).map do |color_step|
+          Gradient::ColorPoint.new(*color_step)
         end
+      end
 
+      gradients = color_gradients.map do |color_points|
         Gradient::Map.new(*color_points)
       end
 
       @maps = Hash[ @gradient_names.zip(gradients) ]
     end
 
-    private def clean_gradient(color_steps)
-      locations = color_steps.map { |g| g["Lctn"] }
+    private def clean_gradient(steps)
+      locations = steps.map { |g| g["Lctn"] }
       min_location = locations.min
       max_location = locations.max
       locations = locations.map do |location|
         ((location - min_location) * (1.0 / (max_location - min_location))).round(3)
       end
 
-      colors = color_steps.map do |color_step|
-        convert_to_color(color_step)
+    private def clean_color_gradient(steps)
+      locations = clean_gradient(steps)
+      colors = steps.map do |step|
+        convert_to_color(step)
       end
+      locations.zip(colors)
+    end
 
-      color_locations = locations.zip(colors)
     end
 
     private def convert_to_color(color_data)
