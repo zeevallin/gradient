@@ -15,12 +15,8 @@ RSpec.describe Gradient::Map do
       expect(map.opacity_points[0]).to eq left_transparent
       expect(map.opacity_points[1]).to eq right_opaque
     end
-  end
 
-  describe "#points" do
-
-
-    it "generates a break point" do
+    it "returns a colored opaque point based on the color points surrounding it" do
       left_black = Gradient::ColorPoint.new(0, Color::RGB.new(0, 0, 0))
       right_white = Gradient::ColorPoint.new(1, Color::RGB.new(255, 255, 255))
 
