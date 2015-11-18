@@ -1,5 +1,5 @@
 require "gradient/version"
-require "gradient/point"
+require "gradient/color_point"
 require "gradient/map"
 require "gradient/grd"
 

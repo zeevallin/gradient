@@ -50,11 +50,11 @@ module Gradient
       flush_current_gradient
 
       gradients = @color_gradients.map do |gradient|
-        points = clean_gradient(gradient).map do |point_data|
-          Gradient::Point.new(*point_data)
+        color_points = clean_gradient(gradient).map do |point_data|
+          Gradient::ColorPoint.new(*point_data)
         end
 
-        Gradient::Map.new(*points)
+        Gradient::Map.new(*color_points)
       end
 
       @maps = Hash[ @gradient_names.zip(gradients) ]

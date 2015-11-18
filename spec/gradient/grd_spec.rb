@@ -17,16 +17,16 @@ RSpec.describe Gradient::GRD do
 
       expect(maps).to match a_hash_including("Kiwi")
       # TODO: Reconcile with python results by gradient in original Photoshop export
-      # assert_point(maps["Kiwi"].points[0], 0.0, 60, 17, 3)
-      assert_point(maps["Kiwi"].points[0], 0.0, 61, 17, 3)
+      # assert_point(maps["Kiwi"].color_points[0], 0.0, 60, 17, 3)
+      assert_point(maps["Kiwi"].color_points[0], 0.0, 61, 17, 3)
       # TODO: Reconcile with python results by gradient in original Photoshop export
-      # assert_point(maps["Kiwi"].points[1], 0.386, 41, 133, 12) FROM PYTHON RESULTS
-      assert_point(maps["Kiwi"].points[1], 0.386, 41, 134, 13)
+      # assert_point(maps["Kiwi"].color_points[1], 0.386, 41, 133, 12) FROM PYTHON RESULTS
+      assert_point(maps["Kiwi"].color_points[1], 0.386, 41, 134, 13)
       # TODO: Reconcile with python results by gradient in original Photoshop export
-      # assert_point(maps["Kiwi"].points[2], 0.84, 159, 202, 27) FROM PYTHON RESULTS
-      assert_point(maps["Kiwi"].points[2], 0.84, 160, 203, 27)
-      assert_point(maps["Kiwi"].points[3], 0.927, 243, 245, 110)
-      assert_point(maps["Kiwi"].points[4], 1.0, 255, 255, 255)
+      # assert_point(maps["Kiwi"].color_points[2], 0.84, 159, 202, 27) FROM PYTHON RESULTS
+      assert_point(maps["Kiwi"].color_points[2], 0.84, 160, 203, 27)
+      assert_point(maps["Kiwi"].color_points[3], 0.927, 243, 245, 110)
+      assert_point(maps["Kiwi"].color_points[4], 1.0, 255, 255, 255)
     end
   end
 
