@@ -29,11 +29,14 @@ module Gradient
 
     def initialize(file)
       @maps = {}
-      @gradients = []
+
       @gradient_names = []
+      @color_gradients = []
+
       @current_object_name = ""
-      @current_gradient = []
+      @current_color_gradient = []
       @current_color = {}
+
       @shift = 0
 
       File.open(file, "r") do |file|
@@ -46,7 +49,7 @@ module Gradient
       parse_entry while @offset < @buffer.length
       flush_current_gradient
 
-      gradients = @gradients.map do |gradient|
+      gradients = @color_gradients.map do |gradient|
         points = clean_gradient(gradient).map do |point_data|
           Gradient::Point.new(*point_data)
         end
@@ -139,12 +142,12 @@ module Gradient
 
     private def flush_current_gradient
       flush_current_color
-      @gradients << @current_gradient if @current_gradient.any?
-      @current_gradient = []
+      @color_gradients << @current_color_gradient if @current_color_gradient.any?
+      @current_color_gradient = []
     end
 
     private def flush_current_color
-      @current_gradient << @current_color if @current_color.any?
+      @current_color_gradient << @current_color if @current_color.any?
       @current_color = {}
     end
 
