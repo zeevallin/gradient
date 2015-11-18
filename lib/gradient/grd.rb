@@ -21,13 +21,25 @@ module Gradient
 
     class << self
 
-      def parse(file)
-        new(file).maps
+      def parse(string_buffer)
+        new.tap do |parser|
+          parser.parse(string_buffer)
+        end.maps
+      end
+
+      def read(file)
+        new.tap do |parser|
+          File.open(file, "r") do |file|
+            while (string_buffer = file.gets)
+              parser.parse(string_buffer)
+            end
+          end
+        end.maps
       end
 
     end
 
-    def initialize(file)
+    def initialize
       @maps = {}
 
       @gradient_names = []
@@ -41,13 +53,10 @@ module Gradient
       @current_transparency = {}
 
       @shift = 0
-
-      File.open(file, "r") do |file|
-        parse while (@buffer = file.gets)
-      end
     end
 
-    private def parse
+    def parse(buffer)
+      @buffer = buffer
       @offset = 28
       parse_entry while @offset < @buffer.length
       flush_current_gradient
