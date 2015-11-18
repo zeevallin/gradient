@@ -49,3 +49,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/zeeraw
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
+## Acknowledgments
+Valek Filippov and the RE-lab team decoded the `.grd` file format and provided
+an [initial parser implementation](https://gitorious.org/re-lab/graphics/source/781a65604d405f29c2da487820f64de8ddb0724d:photoshop/grd).
+[Andy Boughton](https://github.com/abought) later created an [implementation in python](https://github.com/abought/grd_to_cmap) which is the base for this library's implementation.
