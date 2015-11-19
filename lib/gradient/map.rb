@@ -10,7 +10,7 @@ module Gradient
       @opacity_points = sort_points(Array(opacity_points))
       @all_points = sort_points(@color_points + @opacity_points)
       @locations = @all_points.map { |point| point.location }.uniq
-      @points ||= expand_points
+      @points ||= merge_color_and_opacity_points
     end
 
     def inspect
@@ -22,7 +22,7 @@ module Gradient
       @css_printer.css(**args)
     end
 
-    private def expand_points
+    private def merge_color_and_opacity_points
       @locations.map do |location|
         selected_points = @all_points.select { |point| point.location == location }
         colored, opaque = selected_points.group_by(&:class).values_at(ColorPoint, OpacityPoint)
