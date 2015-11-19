@@ -36,6 +36,10 @@ module Gradient
         end.maps
       end
 
+      def open(file)
+        read(file)
+      end
+
     end
 
     def initialize
