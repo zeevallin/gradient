@@ -13,11 +13,19 @@ RSpec.describe Gradient::GRD do
     assert_color_point(maps["Kiwi"].color_points[2], 0.84, 160, 203, 27)
     assert_color_point(maps["Kiwi"].color_points[3], 0.927, 243, 245, 110)
     assert_color_point(maps["Kiwi"].color_points[4], 1.0, 255, 255, 255)
+
+    assert_opacity_point(maps["Kiwi"].opacity_points[0], 0, 1)
+    assert_opacity_point(maps["Kiwi"].opacity_points[1], 1, 1)
   end
 
   def assert_color_point(point, location, red, green, blue)
     expect(point.location.round(3)).to eq location.round(3)
     expect(color_to_rgb(point.color)).to eq color_to_rgb(Color::RGB.new(red, green, blue))
+  end
+
+  def assert_opacity_point(point, location, opacity)
+    expect(point.location.round(3)).to eq location.round(3)
+    expect(point.opacity).to eq opacity
   end
 
   def color_to_rgb(color)
