@@ -4,6 +4,8 @@ module Gradient
     attr_reader :color_points, :opacity_points, :points
 
     def initialize(color_points=[], opacity_points=[])
+      color_points << Gradient::ColorPoint.new(0, Color::RGB.new(255, 255, 255)) if color_points.empty?
+      opacity_points << Gradient::OpacityPoint.new(0, 1) if opacity_points.empty?
       @color_points = sort_points(Array(color_points))
       @opacity_points = sort_points(Array(opacity_points))
       @all_points = sort_points(@color_points + @opacity_points)
@@ -44,8 +46,8 @@ module Gradient
 
     private def previous_and_next_in(bucket, point)
       groups = bucket.group_by { |p| point_group(p, point) }
-      a = groups.fetch(:same) { groups.fetch(:less) }.max { |p| p.location }
-      b = groups.fetch(:same) { groups.fetch(:more) }.min { |p| p.location }
+      a = groups.fetch(:same) { groups.fetch(:less) { groups.fetch(:more) } }.max { |p| p.location }
+      b = groups.fetch(:same) { groups.fetch(:more) { groups.fetch(:less) } }.min { |p| p.location }
       return a, b
     end
 
