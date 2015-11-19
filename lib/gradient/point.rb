@@ -8,7 +8,7 @@ module Gradient
     end
 
     def inspect
-      "#<Point #{location * 100} ##{color.hex}#{"%02x" % (opacity * 255).round} >"
+      "#<Point #{location * 100} ##{color.hex}#{"%02x" % (opacity * 255).round}>"
     end
 
   end
