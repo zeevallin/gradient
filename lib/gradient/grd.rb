@@ -284,7 +284,7 @@ module Gradient
 
       if @current_object_name == "Trns" && name == "Opct" && type == "#Prc"
         flush_current_transparency
-        @current_transparency[name.strip] = value
+        @current_transparency[name.strip] = value / 100
       end
 
       continue!(12)
