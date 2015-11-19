@@ -2,6 +2,27 @@
 Library for dealing with color gradients in ruby
 
 ## Usage
+Gradient works by placing points along two one dimensional planes.
+One for color and one for opacity.
+Start by creating a few points and use them to create a gradient map.
+
+```ruby
+color_points = [
+  Gradient::ColorPoint.new(0, Color::RGB.new(30, 87, 153)),
+  Gradient::ColorPoint.new(0.49, Color::RGB.new(41, 137, 216)),
+  Gradient::ColorPoint.new(0.51, Color::RGB.new(32, 124, 202)),
+  Gradient::ColorPoint.new(1, Color::RGB.new(125, 185, 232)),
+]
+
+opacity_points = [
+  Gradient::OpacityPoint.new(0, 1),
+  Gradient::OpacityPoint.new(0.5, 0),
+  Gradient::OpacityPoint.new(1, 1)
+]
+
+gradient = Gradient::Map.new(color_points, opacity_points)
+# => #<Gradient Map #<Point 0 #1e5799ff> #<Point 49.0 #2989d805> #<Point 50.0 #2583d100> #<Point 51.0 #207cca05> #<Point 100 #7db9e8ff>>
+```
 
 ### Import Adobe Photoshop Gradient (`.grd`) files
 For many artists a preferred way of creating gradients is through Photoshop.
