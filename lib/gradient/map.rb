@@ -45,13 +45,13 @@ module Gradient
     end
 
     private def previous_and_next_in(bucket, point)
-      groups = bucket.group_by { |p| point_group(p, point) }
+      groups = bucket.group_by { |p| triage_point(p, point) }
       a = groups.fetch(:same) { groups.fetch(:less) { groups.fetch(:more) } }.max { |p| p.location }
       b = groups.fetch(:same) { groups.fetch(:more) { groups.fetch(:less) } }.min { |p| p.location }
       return a, b
     end
 
-    private def point_group(a, b)
+    private def triage_point(a, b)
       a.location < b.location ? :less : (a.location > b.location ? :more : :same)
     end
 
