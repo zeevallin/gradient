@@ -11,6 +11,10 @@ module Gradient
       @points ||= expand_points
     end
 
+    def inspect
+      "#<Gradient Map #{points.map(&:inspect).join(" ")}>"
+    end
+
     private def expand_points
       new_points = @locations.map do |location|
         selected_points = @all_points.select { |point| point.location == location }
