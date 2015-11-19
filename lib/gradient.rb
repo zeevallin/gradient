@@ -4,6 +4,7 @@ require "gradient/opacity_point"
 require "gradient/point"
 require "gradient/map"
 require "gradient/grd"
+require "gradient/css_printer"
 
 module Gradient
   require "color"

@@ -24,6 +24,31 @@ gradient = Gradient::Map.new(color_points, opacity_points)
 # => #<Gradient Map #<Point 0 #1e5799ff> #<Point 49.0 #2989d805> #<Point 50.0 #2583d100> #<Point 51.0 #207cca05> #<Point 100 #7db9e8ff>>
 ```
 
+### Convert to CSS
+If you use ruby to serve web content you can use Gradient to convert gradient maps in to [CSS3 Gradients](http://www.w3schools.com/css/css3_gradients.asp)
+
+```ruby
+gradient.to_css
+# => "background:linear-gradient(to right, rgba(30,87,153,1.0) 0%, rgba(41,137,216,0.02) 49%, rgba(37,131,209,0.0) 50%, rgba(32,124,202,0.02) 51%, rgba(125,185,232,1.0) 100%);"
+
+gradient.to_css(property: "border-image")
+# => "border-image:linear-gradient(to right, rgba(30,87,153,1.0) 0%, rgba(41,137,216,0.02) 49%, rgba(37,131,209,0.0) 50%, rgba(32,124,202,0.02) 51%, rgba(125,185,232,1.0) 100%);"
+```
+
+If you want some more control of the css generation you can invoke the CSS Printer manually.
+
+```ruby
+printer = Gradient::CSSPrinter.new(gradient)
+printer.linear
+# => "linear-gradient(to right, rgba(30,87,153,1.0) 0%, rgba(41,137,216,0.02) 49%, rgba(37,131,209,0.0) 50%, rgba(32,124,202,0.02) 51%, rgba(125,185,232,1.0) 100%)"
+
+printer.linear(direction: "to bottom")
+# => "linear-gradient(to bottom, rgba(30,87,153,1.0) 0%, rgba(41,137,216,0.02) 49%, rgba(37,131,209,0.0) 50%, rgba(32,124,202,0.02) 51%, rgba(125,185,232,1.0) 100%)"
+
+printer.radial(shape: :circle)
+# => "radial-gradient(circle, rgba(30,87,153,1.0) 0%, rgba(41,137,216,0.02) 49%, rgba(37,131,209,0.0) 50%, rgba(32,124,202,0.02) 51%, rgba(125,185,232,1.0) 100%)"
+```
+
 ### Import Adobe Photoshop Gradient (`.grd`) files
 For many artists a preferred way of creating gradients is through Photoshop.
 You are able to parse `.grd` files and turn them in to a hash of `Gradient::Map` objects.

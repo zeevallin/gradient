@@ -15,6 +15,11 @@ module Gradient
       "#<Gradient Map #{points.map(&:inspect).join(" ")}>"
     end
 
+    def to_css(**args)
+      @css_printer ||= Gradient::CSSPrinter.new(self)
+      @css_printer.css(**args)
+    end
+
     private def expand_points
       new_points = @locations.map do |location|
         selected_points = @all_points.select { |point| point.location == location }
