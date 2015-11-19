@@ -25,22 +25,22 @@ module Gradient
     private def expand_points
       @locations.map do |location|
         selected_points = @all_points.select { |point| point.location == location }
-        colored_points, opacity_points = selected_points.group_by(&:class).values_at(ColorPoint, OpacityPoint)
-        if colored_points && opacity_points
-          Gradient::Point.new(location, colored_points.first.color, opacity_points.first.opacity)
-        elsif colored_points
-          point = colored_points.first
+        colored, opaque = selected_points.group_by(&:class).values_at(ColorPoint, OpacityPoint)
+        rgba = if colored && opaque
+          [colored.first.color, opaque.first.opacity]
+        elsif colored
+          point = colored.first
           a, b = adjacent_points(@opacity_points, point)
           fraction = location_fraction(a, b, point)
-          opacity = opacity_difference(fraction, a, b)
-          Gradient::Point.new(location, point.color, opacity)
-        elsif opacity_points
-          point = opacity_points.first
+          [point.color, opacity_difference(fraction, a, b)]
+        elsif opaque
+          point = opaque.first
           a, b = adjacent_points(@color_points, point)
           fraction = location_fraction(a, b, point)
-          color = color_difference(fraction, a, b)
-          Gradient::Point.new(location, color, point.opacity)
+          [color_difference(fraction, a, b), point.opacity]
         end
+
+        Gradient::Point.new(location, *rgba)
       end
     end
 
