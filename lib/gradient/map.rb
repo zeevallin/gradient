@@ -30,13 +30,13 @@ module Gradient
           Gradient::Point.new(location, colored_points.first.color, opacity_points.first.opacity)
         elsif colored_points
           point = colored_points.first
-          a, b = previous_and_next_in(@opacity_points, point)
+          a, b = adjacent_points(@opacity_points, point)
           fraction = location_fraction(a, b, point)
           opacity = opacity_difference(fraction, a, b)
           Gradient::Point.new(location, point.color, opacity)
         elsif opacity_points
           point = opacity_points.first
-          a, b = previous_and_next_in(@color_points, point)
+          a, b = adjacent_points(@color_points, point)
           fraction = location_fraction(a, b, point)
           color = color_difference(fraction, a, b)
           Gradient::Point.new(location, color, point.opacity)
@@ -44,7 +44,7 @@ module Gradient
       end
     end
 
-    private def previous_and_next_in(bucket, point)
+    private def adjacent_points(bucket, point)
       groups = bucket.group_by { |p| triage_point(p, point) }
       a = groups.fetch(:same) { groups.fetch(:less) { groups.fetch(:more) } }.max { |p| p.location }
       b = groups.fetch(:same) { groups.fetch(:more) { groups.fetch(:less) } }.min { |p| p.location }
