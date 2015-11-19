@@ -5,6 +5,7 @@ module Gradient
 
     def initialize(color_points=[], opacity_points=[])
       color_points << Gradient::ColorPoint.new(0, Color::RGB.new(255, 255, 255)) if color_points.empty?
+      opacity_points << Gradient::OpacityPoint.new(0, 1) if opacity_points.empty?
       @color_points = sort_points(Array(color_points))
       @opacity_points = sort_points(Array(opacity_points))
       @all_points = sort_points(@color_points + @opacity_points)

@@ -123,6 +123,19 @@ RSpec.describe Gradient::Map do
       expect(gradient.points.last.opacity).to eq 1
     end
 
+    it "reconciles when there are no opacity points" do
+      white = Gradient::ColorPoint.new(0, Color::RGB.new(255, 255, 255))
+      black = Gradient::ColorPoint.new(1, Color::RGB.new(0, 0, 0))
+      color_points = [white, black]
+
+      gradient = Gradient::Map.new(color_points, [])
+      expect(gradient.points.size).to eq 2
+      expect(gradient.points.first.color).to eq white.color
+      expect(gradient.points.first.opacity).to eq 1
+      expect(gradient.points.last.color).to eq black.color
+      expect(gradient.points.last.opacity).to eq 1
+    end
+
     it "reconciles when there are no color points" do
       opacity_points = [
         Gradient::OpacityPoint.new(0, 0),
