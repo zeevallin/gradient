@@ -23,7 +23,7 @@ module Gradient
     end
 
     private def expand_points
-      new_points = @locations.map do |location|
+      @locations.map do |location|
         selected_points = @all_points.select { |point| point.location == location }
         colored_points, opacity_points = selected_points.group_by(&:class).values_at(ColorPoint, OpacityPoint)
         if colored_points && opacity_points
