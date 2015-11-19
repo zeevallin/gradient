@@ -44,8 +44,8 @@ module Gradient
 
     private def previous_and_next_in(bucket, point)
       groups = bucket.group_by { |p| point_group(p, point) }
-      a = groups.fetch(:same) { groups.fetch(:less) }.max { |p| p.location }
-      b = groups.fetch(:same) { groups.fetch(:more) }.min { |p| p.location }
+      a = groups.fetch(:same) { groups.fetch(:less) { groups.fetch(:more) } }.max { |p| p.location }
+      b = groups.fetch(:same) { groups.fetch(:more) { groups.fetch(:less) } }.min { |p| p.location }
       return a, b
     end
 
