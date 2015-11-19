@@ -54,7 +54,7 @@ For many artists a preferred way of creating gradients is through Photoshop.
 You are able to parse `.grd` files and turn them in to a hash of `Gradient::Map` objects.
 
 ```ruby
-Gradient::GRD.parse("./kiwi.grd")
+Gradient::GRD.read("./kiwi.grd")
 # => {
 #   "Kiwi"=> #<Gradient Map #<Point 0.0 #3d1103ff> #<Point 38.6 #29860dff> #<Point 84.0 #a0cb1bff> #<Point 92.7 #f3f56eff> #<Point 100.0 #ffffffff>>
 # }
