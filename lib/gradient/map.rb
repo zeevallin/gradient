@@ -52,13 +52,7 @@ module Gradient
     end
 
     private def point_group(a, b)
-      if a.location < b.location
-        :less
-      elsif a.location > b.location
-        :more
-      else
-        :same
-      end
+      a.location < b.location ? :less : (a.location > b.location ? :more : :same)
     end
 
     private def color_difference(fraction, a, b)
