@@ -115,13 +115,13 @@ module Gradient
 
     private def convert_to_color(color_data)
       case format = color_data["palette"]
-      when "CMYC" then Color::CMYK.from_percent(*color_data.values_at("Cyn", "Mgnt", "Ylw", "Blck").map(&:round))
+      when "CMYC" then Color::CMYK.from_percent(*color_data.values_at("Cyn", "Mgnt", "Ylw", "Blck").map(&:round)).to_rgb
       when "RGBC" then Color::RGB.new(*color_data.values_at("Rd", "Grn", "Bl").map(&:round))
       when "HSBC"
         h = color_data.fetch("H")
         s = color_data.fetch("Strt") / 100.0
         l = color_data.fetch("Brgh") / 100.0
-        Color::HSL.from_fraction(h, s, l)
+        Color::HSL.from_fraction(h, s, l).to_rgb
       else
         raise NotImplementedError.new("The color #{format} is not supported")
       end
