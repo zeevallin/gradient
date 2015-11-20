@@ -354,7 +354,7 @@ module Gradient
       hex = []
       ascii = []
 
-      (0...15).times do |i|
+      16.times do |i|
         begin
           ord = @buffer[@offset + i].ord
           hex << "%02x" % ord
