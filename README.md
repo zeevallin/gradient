@@ -40,6 +40,26 @@ printer.radial(shape: :circle)
 # => "radial-gradient(circle, rgba(30,87,153,1.0) 0%, rgba(41,137,216,0.02) 49%, rgba(37,131,209,0.0) 50%, rgba(32,124,202,0.02) 51%, rgba(125,185,232,1.0) 100%)"
 ```
 
+### Serialize & deserialize gradients
+To store your gradients in something like a document database,
+you're able to convert a gradient to primitives using `Gradient::Map#serialize`.
+
+```ruby
+Gradient::Map.new(
+  Gradient::Point.new(0, Color::RGB.new(221, 189, 82), 1.0),
+  Gradient::Point.new(1, Color::RGB.new(89, 12, 72), 0.3)
+).serialize
+# => [[0, "rgb", [221, 189, 82], 1.0], [1, "rgb", [89, 12, 72], 0.3]]
+
+```
+
+You can easily turn them back in to ruby objects by using `Gradient::Map.deserialize`.
+
+```ruby
+Gradient::Map.deserialize([[0, "rgb", [221, 189, 82], 1.0], [1, "rgb", [89, 12, 72], 0.3]])
+# => #<Gradient Map #<Point 0 #ddbd52ff> #<Point 100 #590c484d>>
+```
+
 ### Import Adobe Photoshop Gradient (`.grd`) files
 For many artists a preferred way of creating gradients is through Photoshop.
 You are able to parse `.grd` files and turn them in to a hash of `Gradient::Map` objects.
