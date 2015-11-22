@@ -75,7 +75,7 @@ module Gradient
       end
 
       gradients = color_gradients.zip(transparency_gradients).map do |color_points|
-        Gradient::Map.new(*color_points)
+        Gradient::Map.new(Gradient::PointMerger.new(*color_points).call)
       end
 
       @maps = Hash[ @gradient_names.zip(gradients) ]

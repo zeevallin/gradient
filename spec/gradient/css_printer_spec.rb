@@ -1,14 +1,14 @@
 RSpec.describe Gradient::CSSPrinter do
 
   let(:map) {
-    Gradient::Map.new([
+    Gradient::Map.new(Gradient::PointMerger.new([
       Gradient::ColorPoint.new(0, Color::RGB.new(0, 0, 0)),
       Gradient::ColorPoint.new(1, Color::RGB.new(255, 255, 255)),
     ],[
       Gradient::OpacityPoint.new(0, 0),
       Gradient::OpacityPoint.new(0.5, 1),
       Gradient::OpacityPoint.new(1, 1)
-    ])
+    ]).call)
   }
 
   subject(:printer) { described_class.new(map) }

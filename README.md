@@ -2,26 +2,17 @@
 Library for dealing with color gradients in ruby
 
 ## Usage
-Gradient works by placing points along two one dimensional planes.
-One for color and one for opacity.
-Start by creating a few points and use them to create a gradient map.
+Gradient works by placing point vectors along a one dimensional plane.
+Start by creating a few points and pass them to a gradient map.
 
 ```ruby
-color_points = [
-  Gradient::ColorPoint.new(0, Color::RGB.new(30, 87, 153)),
-  Gradient::ColorPoint.new(0.49, Color::RGB.new(41, 137, 216)),
-  Gradient::ColorPoint.new(0.51, Color::RGB.new(32, 124, 202)),
-  Gradient::ColorPoint.new(1, Color::RGB.new(125, 185, 232)),
-]
-
-opacity_points = [
-  Gradient::OpacityPoint.new(0, 1),
-  Gradient::OpacityPoint.new(0.5, 0),
-  Gradient::OpacityPoint.new(1, 1)
-]
-
-gradient = Gradient::Map.new(color_points, opacity_points)
-# => #<Gradient Map #<Point 0 #1e5799ff> #<Point 49.0 #2989d805> #<Point 50.0 #2583d100> #<Point 51.0 #207cca05> #<Point 100 #7db9e8ff>>
+gradient = Gradient::Map.new(
+  Gradient::Point.new(0, Color::RGB.new(32, 36, 196), 1.0),
+  Gradient::Point.new(0.49, Color::RGB.new(14, 250, 211), 0.1),
+  Gradient::Point.new(0.50, Color::RGB.new(171, 25, 12), 0.7),
+  Gradient::Point.new(1, Color::RGB.new(15, 212, 162), 0.3)
+)
+# => #<Gradient Map #<Point 0 #2024c4ff> #<Point 49.0 #0efad31a> #<Point 50.0 #ab190cb3> #<Point 100 #0fd4a24d>>
 ```
 
 ### Convert to CSS
