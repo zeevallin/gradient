@@ -153,7 +153,7 @@ module Gradient
     end
 
     private def log(name, type, *args)
-      puts "#{Array.new(@shift, " ").join}#{name}(#{type}) #{ Array(args).join(", ") }" if ENV["ENABLE_LOG"]
+      puts "#{Array.new(@shift, " ").join}#{name}(#{type}) #{ Array(args).map(&:to_s).reject(&:empty?).join(", ") }" if ENV["ENABLE_LOG"]
     end
 
     private def send_parse_method(type, name)
