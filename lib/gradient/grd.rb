@@ -165,6 +165,8 @@ module Gradient
     private def parse_entry
       length = current_slice_length
       length = 4 if length.zero?
+      rollback = @offset
+
       continue!
 
       name = current_slice
@@ -173,7 +175,7 @@ module Gradient
       type = current_slice
       continue!
 
-      send_parse_method(type, name, (4 + length))
+      send_parse_method(type, name, rollback)
     end
 
     private def flush_current_gradient
@@ -354,7 +356,7 @@ module Gradient
     # Sometimes the offset is off by one byte.
     # We roll back to the point before parsing an entry to try and parse it again.
     private def parse_unknown(name, rollback)
-      @offset -= rollback + 4 + 1
+      @offset = rollback - 1
       parse_entry if @offset < @buffer.length
     end
 
