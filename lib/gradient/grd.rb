@@ -213,9 +213,12 @@ module Gradient
       upshift!
 
       size.times do |i|
-        type = current_slice
+        type = current_slice.strip
         continue!
-        send_parse_method(type, name, (i * 4))
+
+        if parse_method = PARSE_METHODS.fetch(type, nil)
+          send(parse_method, name)
+        end
       end
 
       downshift!
