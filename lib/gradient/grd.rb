@@ -156,11 +156,11 @@ module Gradient
       puts "#{Array.new(@shift, " ").join}#{name}(#{type}) #{ Array(args).map(&:to_s).reject(&:empty?).join(", ") }" if ENV["ENABLE_LOG"]
     end
 
-    private def send_parse_method(type, name)
+    private def send_parse_method(type, name, rollback)
       if parse_method = PARSE_METHODS.fetch(type, nil)
         send(parse_method, name)
       else
-        parse_unknown(name)
+        parse_unknown(name, rollback)
       end
     end
 
@@ -175,7 +175,7 @@ module Gradient
       type = current_slice
       continue!
 
-      send_parse_method(type, name)
+      send_parse_method(type, name, (4 + length))
     end
 
     private def flush_current_gradient
@@ -214,10 +214,10 @@ module Gradient
       log(name, "vlls", size)
       upshift!
 
-      size.times do
+      size.times do |i|
         type = current_slice
         continue!
-        send_parse_method(type, name)
+        send_parse_method(type, name, (i * 4))
       end
 
       downshift!
@@ -350,24 +350,11 @@ module Gradient
       log(name, "tdta", size, string)
     end
 
-    private def parse_unknown(name)
-      name = @buffer.slice(@offset + 8, 4)
-      log(name, "unknown", "Failed with simple case")
-
-      hex = []
-      ascii = []
-
-      16.times do |i|
-        begin
-          ord = @buffer[@offset + i].ord
-          hex << "%02x" % ord
-          ascii << (ord < 32 || 126 < ord) ? "." : ord
-        rescue
-          log(name, "unknown", "Something failed")
-        end
-      end
-
-      fail [hex.join(" "), ascii.join].join("\n")
+    # Sometimes the offset is off by one byte.
+    # We roll back to the point before parsing an entry to try and parse it again.
+    private def parse_unknown(name, rollback)
+      @offset -= rollback + 4 + 1
+      parse_entry if @offset < @buffer.length
     end
 
   end
