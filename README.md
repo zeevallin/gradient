@@ -51,7 +51,7 @@ Gradient::GRD.read("./kiwi.grd")
 # }
 ```
 
-### Gradient from separate point vectors for opacity and color
+### Separate point vectors for opacity and color
 You're able to control the point vectors for color and opacity separately by using a point merger.
 
 ```ruby
