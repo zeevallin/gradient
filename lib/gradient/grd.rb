@@ -273,7 +273,7 @@ module Gradient
       end
 
       upshift!
-      object_size.times { parse_entry }
+      object_size.times { parse_entry if @offset < @buffer.length }
       downshift!
     end
 
