@@ -82,7 +82,7 @@ module Gradient
     end
 
     private def clean_gradient(steps)
-      locations = steps.map { |g| g["Lctn"] }
+      locations = steps.map { |g| g.fetch("Lctn", 0.0) }
       min_location = locations.min
       max_location = locations.max
 
