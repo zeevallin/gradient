@@ -217,11 +217,14 @@ module Gradient
       upshift!
 
       size.times do |i|
-        type = current_slice.strip
+        type = current_slice
         continue!
 
-        if parse_method = PARSE_METHODS.fetch(type, nil)
-          send(parse_method, name)
+        begin
+          if parse_method = PARSE_METHODS.fetch(type.strip, nil)
+            send(parse_method, name)
+          end
+        rescue ArgumentError => e
         end
       end
 
