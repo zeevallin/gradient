@@ -60,6 +60,29 @@ Gradient::GRD.read("./kiwi.grd")
 # }
 ```
 
+### Gradient from separate point vectors for opacity and color
+You're able to control the point vectors for color and opacity separately by using a point merger.
+
+```ruby
+color_points = [
+  Gradient::ColorPoint.new(0, Color::RGB.new(30, 87, 153)),
+  Gradient::ColorPoint.new(0.49, Color::RGB.new(41, 137, 216)),
+  Gradient::ColorPoint.new(0.51, Color::RGB.new(32, 124, 202)),
+  Gradient::ColorPoint.new(1, Color::RGB.new(125, 185, 232)),
+]
+
+opacity_points = [
+  Gradient::OpacityPoint.new(0, 1),
+  Gradient::OpacityPoint.new(0.5, 0),
+  Gradient::OpacityPoint.new(1, 1)
+]
+
+points = Gradient::PointMerger.new(color_points, opacity_points).call
+
+gradient = Gradient::Map.new(points)
+# => #<Gradient Map #<Point 0 #1e5799ff> #<Point 49.0 #2989d805> #<Point 50.0 #2583d100> #<Point 51.0 #207cca05> #<Point 100 #7db9e8ff>>
+```
+
 ## Installation
 Add this line to your application's Gemfile:
 
