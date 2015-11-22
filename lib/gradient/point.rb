@@ -11,5 +11,9 @@ module Gradient
       "#<Point #{location * 100} ##{color.hex}#{"%02x" % (opacity * 255).round}>"
     end
 
+    def <=>(other)
+      self.location <=> other.location
+    end
+
   end
 end

@@ -4,5 +4,8 @@ module Gradient
     def initialize(location, color)
       @color, @location = color, location
     end
+    def <=>(other)
+      self.location <=> other.location
+    end
   end
 end
