@@ -343,8 +343,11 @@ module Gradient
     end
 
     private def parse_tdta(name)
-      log(name, "tdta")
-      parse_unknown(name)
+      size = current_slice_length
+      continue!
+      string = current_slice(size)
+      continue!(size)
+      log(name, "tdta", size, string)
     end
 
     private def parse_unknown(name)
