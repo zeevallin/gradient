@@ -54,9 +54,17 @@ RSpec.describe Gradient::GRD do
       assert_maps(described_class.read(file))
     end
 
-    it "returns a correct representation of the nine.grd", slow: true do
-      filename = Pathname(File.expand_path("../../fixtures/nine.grd", __FILE__))
-      expect { described_class.read(filename) }.to_not raise_exception
+    it "profile parsing nine.grd", profile: true, slow: true do
+      require "ruby-prof"
+
+      result = RubyProf.profile do |p|
+        Signal.trap("INT") { break }
+        filename = Pathname(File.expand_path("../../fixtures/nine.grd", __FILE__))
+        described_class.read(filename)
+      end
+
+      printer = RubyProf::FlatPrinter.new(result)
+      printer.print(STDOUT)
     end
 
   end
