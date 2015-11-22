@@ -248,28 +248,28 @@ module Gradient
       object_name_length = current_slice_length
       continue!
 
-      object_name = current_slice(object_name_length * 2)
+      object_name = current_slice(object_name_length * 2).strip
       continue!(object_name_length * 2)
 
       object_type_length = current_slice_length
       object_type_length = 4 if object_type_length.zero?
       continue!
 
-      object_type = current_slice(object_type_length)
+      object_type = current_slice(object_type_length).strip
       continue!(object_type_length)
 
       object_size = current_slice_length
       continue!
 
-      log(name, "objc", object_size, object_type, object_name)
-
       @current_object_name = name.strip
+      log(@current_object_name, "objc", object_size, object_type, object_name)
+
       case @current_object_name
       when "Grad"
         flush_current_gradient
       when "Clr"
         flush_current_color
-        @current_color = { "palette" => object_type.strip }
+        @current_color = { "palette" => object_type }
       end
 
       upshift!
