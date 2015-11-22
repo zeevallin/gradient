@@ -29,9 +29,7 @@ module Gradient
       def read(file)
         new.tap do |parser|
           File.open(file, "r") do |file|
-            while (string_buffer = file.gets)
-              parser.parse(string_buffer)
-            end
+            parser.parse(file.read)
           end
         end.maps
       end
