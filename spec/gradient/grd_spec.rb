@@ -54,6 +54,11 @@ RSpec.describe Gradient::GRD do
       assert_maps(described_class.read(file))
     end
 
+    it "returns a correct representation of the nine.grd", slow: true do
+      filename = Pathname(File.expand_path("../../fixtures/nine.grd", __FILE__))
+      expect { described_class.read(filename) }.to_not raise_exception
+    end
+
   end
 
 end
