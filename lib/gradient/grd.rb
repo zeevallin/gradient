@@ -165,6 +165,8 @@ module Gradient
     private def parse_entry
       length = current_slice_length
       length = 4 if length.zero?
+      length = 4 if length > 256
+
       rollback = @offset
 
       continue!
