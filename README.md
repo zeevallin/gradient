@@ -1,5 +1,6 @@
 # Gradient
 [![Gem Version](https://badge.fury.io/rb/gradient.svg)](https://badge.fury.io/rb/gradient)
+[![Build Status](https://travis-ci.org/zeeraw/gradient.svg?branch=master)](https://travis-ci.org/zeeraw/gradient)
 
 Library for dealing with color gradients in ruby
 
