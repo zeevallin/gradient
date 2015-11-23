@@ -1,4 +1,6 @@
 # Gradient
+[![Gem Version](https://badge.fury.io/rb/gradient.svg)](https://badge.fury.io/rb/gradient)
+
 Library for dealing with color gradients in ruby
 
 ## Usage
