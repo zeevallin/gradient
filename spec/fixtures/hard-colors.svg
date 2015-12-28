@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+<linearGradient y2="1" x2="1" id="hard-colors" spreadMethod="reflect" x1="1" y1="0">
+<stop stop-color="rgba(0, 0, 0, 0.5)" offset="0"/>
+<stop stop-color="#F3F3F3" offset="0.4983"/>
+<stop stop-color="rgba(0, 0, 0, 0)" offset="0.9"/>
+<stop stop-color="#FF0" offset="0.95"/>
+<stop stop-color="rgb(255, 255, 255)" offset="1"/>
+</linearGradient>
+<rect width="100%" height="100%" fill="url(#g)"/>
+</svg>

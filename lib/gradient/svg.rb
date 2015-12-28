@@ -61,7 +61,6 @@ module Gradient
         raise SVGError, 'stop has no offset'
       end
       location = parse_location(offset)
-      # FIXME, handle style
       unless (stop_color = stop['stop-color']) then
         raise SVGError, 'stop has no stop-color'
       end
@@ -81,12 +80,18 @@ module Gradient
     end
 
     private def parse_stop_color(stop_color)
-      # FIXME - handle # colours
-      if (parts = stop_color.scanf('rgb(%d,%d,%d)')).count == 3 then
-        [*parts, 1.0]
-      elsif (parts = stop_color.scanf('rgba(%d,%d,%d,%f)')).count == 4 then
-        parts
+      parts =
+        if (rgb = stop_color.scanf('rgb(%d,%d,%d)')).count == 3 then
+          [*rgb, 1.0]
+        elsif (rgba = stop_color.scanf('rgba(%d,%d,%d,%f)')).count == 4 then
+          rgba
+        elsif (c = Color::RGB.from_html(stop_color)) then
+          [c.red.to_i, c.green.to_i, c.blue.to_i, 1.0]
+        end
+      unless parts then
+        raise SVGError, "failed parse of stop-color #{stop_color}"
       end
+      parts
     end
 
     private def parse_stop_opacity(stop_opacity)

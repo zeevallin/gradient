@@ -14,52 +14,91 @@ RSpec.describe Gradient::SVG do
 
   describe '.parse' do
 
-    let(:maps) { described_class.parse(fixture_buffer('subtle')) }
+    context 'subtle.svg' do
 
-    it 'should return a hash' do
-      expect(maps).to be_a Hash
-    end
+      # this a simple single gradient svg, no surprise
 
-    it 'should have the correct keys' do
-      expect(maps.keys).to match_array ['subtle']
-    end
+      let(:maps) { described_class.parse(fixture_buffer('subtle')) }
 
-    describe 'the hash value' do
-
-      let(:map) { maps['subtle'] }
-
-      it 'should be a Gradient::Map' do
-        expect(map).to be_a Gradient::Map
+      it 'should return a hash' do
+        expect(maps).to be_a Hash
       end
 
-      describe 'the points' do
+      it 'should have the correct keys' do
+        expect(maps.keys).to match_array ['subtle']
+      end
 
-        let(:points) { map.points }
+      describe 'the hash value' do
 
-        it 'should be an array' do
-          expect(points).to be_an Array
+        let(:map) { maps['subtle'] }
+
+        it 'should be a Gradient::Map' do
+          expect(map).to be_a Gradient::Map
         end
 
-        it 'should have 11 elements' do
-          expect(points.count).to eq 11
-        end
+        describe 'the points' do
 
-        it 'should consist of Gradient::Point objects' do
-          points.each do |point|
-            expect(point).to be_a Gradient::Point
+          let(:points) { map.points }
+
+          it 'should be an array' do
+            expect(points).to be_an Array
           end
-        end
 
-        describe 'the locations' do
+          it 'should have 11 elements' do
+            expect(points.count).to eq 11
+          end
 
-          let(:locations) { points.map(&:location) }
+          it 'should consist of Gradient::Point objects' do
+            points.each do |point|
+              expect(point).to be_a Gradient::Point
+            end
+          end
 
-          it 'should have the expected values' do
-            expect(locations)
-              .to match_array [0, 6, 19, 25, 32, 42, 53, 65, 75, 87, 100]
+          describe 'the locations' do
+
+            let(:locations) { points.map(&:location) }
+
+            it 'should have the expected values' do
+              expect(locations)
+                .to match_array [0, 6, 19, 25, 32, 42, 53, 65, 75, 87, 100]
+            end
           end
         end
       end
     end
+
+    context 'hard-colors.svg' do
+
+      # this a single gradient with various sorts of valid stop-color
+      # values, exercises the parsing of colours
+
+      let(:maps) { described_class.parse(fixture_buffer('hard-colors')) }
+
+      it 'should return a hash' do
+        expect(maps).to be_a Hash
+      end
+
+      it 'should have the correct keys' do
+        expect(maps.keys).to match_array ['hard-colors']
+      end
+
+    end
+
+    context 'no-gradient.svg' do
+
+      # this valid svg file has no gradients in it
+
+      let(:maps) { described_class.parse(fixture_buffer('no-gradient')) }
+
+      it 'should return a hash' do
+        expect(maps).to be_a Hash
+      end
+
+      it 'should have the correct keys' do
+        expect(maps.keys).to match_array []
+      end
+
+    end
+
   end
 end
