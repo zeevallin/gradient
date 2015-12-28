@@ -21,13 +21,44 @@ RSpec.describe Gradient::SVG do
     end
 
     it 'should have the correct keys' do
-      skip 'implementation'
       expect(maps.keys).to match_array ['subtle']
     end
 
-    it "should have #{described_class} values" do
-      maps.values.each do |map|
-        expect(map).to be_a described_class
+    describe 'the hash value' do
+
+      let(:map) { maps['subtle'] }
+
+      it 'should be a Gradient::Map' do
+        expect(map).to be_a Gradient::Map
+      end
+
+      describe 'the points' do
+
+        let(:points) { map.points }
+
+        it 'should be an array' do
+          expect(points).to be_an Array
+        end
+
+        it 'should have 11 elements' do
+          expect(points.count).to eq 11
+        end
+
+        it 'should consist of Gradient::Point objects' do
+          points.each do |point|
+            expect(point).to be_a Gradient::Point
+          end
+        end
+
+        describe 'the locations' do
+
+          let(:locations) { points.map(&:location) }
+
+          it 'should have the expected values' do
+            expect(locations)
+              .to match_array [0, 6, 19, 25, 32, 42, 53, 65, 75, 87, 100]
+          end
+        end
       end
     end
   end
