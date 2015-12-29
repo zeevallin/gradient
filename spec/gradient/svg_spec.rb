@@ -1,20 +1,8 @@
 RSpec.describe Gradient::SVG do
 
-  def fixture_dir
-    '../fixtures'
-  end
-
-  def fixture_path(base)
-    Pathname(File.expand_path("../#{fixture_dir}/#{base}.svg", __FILE__))
-  end
-
-  def fixture_buffer(base)
-    File.open(fixture_path(base), 'r').read
-  end
-
   shared_examples_for 'a hash of Gradient::Map' do |expect|
 
-    let(:map_hash) { described_class.parse(fixture_buffer(fixture_name)) }
+    let(:map_hash) { described_class.parse(fixture_buffer(fixture)) }
 
     it 'should be a Hash' do
       expect(map_hash).to be_a Hash
@@ -34,11 +22,17 @@ RSpec.describe Gradient::SVG do
           expect(map).to be_a Gradient::Map
         end
 
-        it "should have #{expect[key]} points" do
+        it "should have #{expect[key]} valid Gradinet::Points" do
           expect(map.points.count).to eq expect[key]
           map.points.each do |point|
             expect(point).to be_a Gradient::Point
+            expect(point.location).to be_a Float
+            expect(point.color).to be_a Color::RGB
+            expect(point.opacity).to be_a Float
+            expect(point.opacity).to be_between(0, 1).inclusive
           end
+          expect(map.points.map(&:location))
+            .to be_monotonically_increasing
         end
       end
     end
@@ -51,7 +45,7 @@ RSpec.describe Gradient::SVG do
     context 'subtle.svg' do
       it_should_behave_like('a hash of Gradient::Map', 
                             'subtle' => 11 ) do
-        let(:fixture_name) { 'subtle' }
+        let(:fixture) { 'subtle.svg' }
       end
     end
 
@@ -61,7 +55,7 @@ RSpec.describe Gradient::SVG do
     context 'hard-colors.svg' do
       it_should_behave_like('a hash of Gradient::Map', 
                             'hard-colors' => 5 ) do
-        let(:fixture_name) { 'hard-colors' }
+        let(:fixture) { 'hard-colors.svg' }
       end
     end
 
@@ -69,7 +63,7 @@ RSpec.describe Gradient::SVG do
 
     context 'no-gradient.svg' do
       it_should_behave_like('a hash of Gradient::Map', {}) do
-        let(:fixture_name) { 'no-gradient' }
+        let(:fixture) { 'no-gradient.svg' }
       end
     end
 
@@ -79,7 +73,7 @@ RSpec.describe Gradient::SVG do
     context 'lemon-lime.svg' do
       it_should_behave_like('a hash of Gradient::Map', 
                             'Lemon-Lime' => 5) do
-        let(:fixture_name) { 'lemon-lime' }
+        let(:fixture) { 'lemon-lime.svg' }
       end
     end
 
@@ -94,7 +88,7 @@ RSpec.describe Gradient::SVG do
                             'linearGradient336' => 2, 
                             'linearGradient356' => 2, 
                             'linearGradient393' => 2) do
-        let(:fixture_name) { 'punasia' }
+        let(:fixture) { 'punasia.svg' }
       end
     end
   end
