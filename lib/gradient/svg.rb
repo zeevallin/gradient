@@ -93,7 +93,7 @@ module Gradient
       unless (location = offset.scanf('%f%%')).count == 1 then
         raise SVGError, "failed parse of offset #{offset}"
       end
-      location.first
+      location.first / 100.0
     end
 
     private def parse_stop_color(stop_color)
@@ -112,7 +112,7 @@ module Gradient
     end
 
     private def parse_stop_opacity(stop_opacity)
-      stop_opacity.scanf('%f')
+      stop_opacity.scanf('%f').first
     end
   end
 end
