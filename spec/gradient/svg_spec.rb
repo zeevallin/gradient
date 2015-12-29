@@ -59,8 +59,11 @@ RSpec.describe Gradient::SVG do
             let(:locations) { points.map(&:location) }
 
             it 'should have the expected values' do
-              expect(locations)
-                .to match_array [0, 6, 19, 25, 32, 42, 53, 65, 75, 87, 100]
+              expected =
+                [0.00, 0.06, 0.19, 0.25,
+                 0.32, 0.42, 0.53, 0.65,
+                 0.75, 0.87, 1.0]
+              expect(locations).to match_array expected
             end
           end
         end
