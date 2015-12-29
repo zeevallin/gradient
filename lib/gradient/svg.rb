@@ -54,9 +54,9 @@ module Gradient
 
     private def parse_linear_gradient(linear_gradient)
       map = Gradient::Map.new
-      linear_gradient.children.each do |stop|
-        next unless stop.name == 'stop'
-        map.points << parse_stop(stop)
+      linear_gradient.children.each do |node|
+        next unless node.name == 'stop'
+        map.points << parse_stop(node)
       end
       map
     end
