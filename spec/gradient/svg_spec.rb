@@ -100,5 +100,23 @@ RSpec.describe Gradient::SVG do
 
     end
 
+    context 'lemon-lime.svg' do
+
+      # this specifies color and opacity via a css-style attribute
+      # such as style="stop-color:lime;stop-opacity:1", also, does
+      # not specify the svg namespace
+
+      let(:maps) { described_class.parse(fixture_buffer('lemon-lime')) }
+
+      it 'should return a hash' do
+        expect(maps).to be_a Hash
+      end
+
+      it 'should have the correct keys' do
+        expect(maps.keys).to match_array ['Lemon-Lime']
+      end
+
+    end
+
   end
 end

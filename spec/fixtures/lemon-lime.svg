@@ -1,0 +1,53 @@
+<svg height="500" width="500">
+  <linearGradient id="Lemon-Lime" x1="0%" y1="0%" x2="100%" y2="0%"
+    spreadMethod="pad" gradientUnits="objectBoundingBox">
+    <stop offset="0%" style="stop-color:yellow;stop-opacity:1"/>
+    <stop offset="20%" style="stop-color:yellow;stop-opacity:1"/>
+    <stop offset="50%" style="stop-color:lime;stop-opacity:1"/>
+    <stop offset="80%" style="stop-color:yellow;stop-opacity:1"/>
+    <stop offset="100%" style="stop-color:yellow;stop-opacity:1"/>
+  </linearGradient>
+
+  <metadata>
+    <rdf:RDF 
+     xmlns="http://web.resource.org/cc/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <Work rdf:about="">
+        <dc:title>SVG Gradient Collection by Alan Horkan, 2004.</dc:title>
+	<dc:description></dc:description>
+        <dc:subject><rdf:Bag><rdf:li>gradients</rdf:li></rdf:Bag></dc:subject>
+        <dc:publisher>
+           <Agent rdf:about="">
+             <dc:title></dc:title>
+           </Agent>
+         </dc:publisher>
+         <dc:creator>
+           <Agent rdf:about="">
+             <dc:title>Alan Horkan</dc:title>
+           </Agent>
+        </dc:creator>
+         <dc:rights>
+           <Agent rdf:about="">
+             <dc:title>Alan Horkan</dc:title>
+           </Agent>
+        </dc:rights>
+        <dc:date></dc:date>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <license rdf:resource="http://web.resource.org/cc/PublicDomain">
+	  <dc:date></dc:date>
+	</license>
+        <dc:language>en</dc:language>
+      </Work>
+
+      <License rdf:about="http://web.resource.org/cc/PublicDomain">
+         <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+         <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+         <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+      </License>
+
+
+    </rdf:RDF>
+  </metadata>
+</svg>
