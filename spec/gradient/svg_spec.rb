@@ -16,7 +16,7 @@ RSpec.describe Gradient::SVG do
 
     context 'subtle.svg' do
 
-      # this a simple single gradient svg, no surprise
+      # this a simple single gradient svg, no surprises
 
       let(:maps) { described_class.parse(fixture_buffer('subtle')) }
 
@@ -70,7 +70,7 @@ RSpec.describe Gradient::SVG do
     context 'hard-colors.svg' do
 
       # this a single gradient with various sorts of valid stop-color
-      # values, exercises the parsing of colours
+      # values, exercises the parsing of colors
 
       let(:maps) { described_class.parse(fixture_buffer('hard-colors')) }
 
@@ -103,8 +103,7 @@ RSpec.describe Gradient::SVG do
     context 'lemon-lime.svg' do
 
       # this specifies color and opacity via a css-style attribute
-      # such as style="stop-color:lime;stop-opacity:1", also, does
-      # not specify the svg namespace
+      # using named colors; also, does not specify the svg namespace
 
       let(:maps) { described_class.parse(fixture_buffer('lemon-lime')) }
 
@@ -112,11 +111,29 @@ RSpec.describe Gradient::SVG do
         expect(maps).to be_a Hash
       end
 
+
       it 'should have the correct keys' do
         expect(maps.keys).to match_array ['Lemon-Lime']
       end
 
     end
 
+    context 'punasia.svg' do
+
+      # contains multiple gradients, css-style with hex colors, and
+      # several gradients which are links (which do not have any stops
+      # of their own, so should be ignored)
+
+      let(:maps) { described_class.parse(fixture_buffer('punasia')) }
+
+      it 'should return a hash' do
+        expect(maps).to be_a Hash
+      end
+
+      it 'should have the correct keys' do
+        ids = [281, 333, 336, 356, 393].map { |id| "linearGradient#{id}" }
+        expect(maps.keys).to match_array ids
+      end
+    end
   end
 end

@@ -46,7 +46,9 @@ module Gradient
         unless (id = linear_gradient['id']) then
           raise SVGError, 'linearGradient has no id'
         end
-        @maps[id] = parse_linear_gradient(linear_gradient)
+        unless (map = parse_linear_gradient(linear_gradient)).points.empty?
+          @maps[id] = map
+        end
       end
     end
 
