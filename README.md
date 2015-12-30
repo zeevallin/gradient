@@ -78,7 +78,7 @@ Gradient::GRD.read("./kiwi.grd")
 SVG images can contain multiple gradients, and these can be extracted in the same
 way as for `.grd` files.
 ```ruby
-Gradient::GRD.read("./lemon-lime.svg")
+Gradient::SVG.read("./lemon-lime.svg")
 # => {
 #   "Lemon-Lime"=> #<Gradient Map #<Point 0.0 #ffff00ff> #<Point 20.0 #ffff00ff> #<Point 50.0 #00ff00ff> #<Point 80.0 #ffff00ff> #<Point 100.0 #ffff00ff>>}"
 # }
