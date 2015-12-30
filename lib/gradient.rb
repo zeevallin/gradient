@@ -5,6 +5,7 @@ require "gradient/point"
 require "gradient/point_merger"
 require "gradient/map"
 require "gradient/grd"
+require "gradient/svg"
 require "gradient/css_printer"
 
 module Gradient

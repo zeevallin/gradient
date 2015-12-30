@@ -1,6 +1,16 @@
 require "gradient"
 require "pry"
 
+def fixture_path(file)
+  Pathname(File.expand_path("../fixtures/#{file}", __FILE__))
+end
+
+def fixture_buffer(file)
+  File.open(fixture_path(file), 'r').read
+end
+
+Dir[File.expand_path('../matchers/*.rb', __FILE__)].each { |f| require f }
+
 RSpec.configure do |config|
 
   config.filter_run_excluding slow: true, profile: true
@@ -28,3 +38,5 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
 end
+
+
