@@ -30,8 +30,7 @@ module Gradient
 
     def interpolate(location, opts = {})
       if range.include? location then
-        i = points.find_index { |p| p.location >= location } 
-        if i == 0 then
+        if 0 == (i = points.find_index { |p| p.location >= location }) then
           points[0].dup
         else
           interpolate_points(points[i-1], points[i], location)
