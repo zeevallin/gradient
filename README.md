@@ -107,6 +107,18 @@ gradient = Gradient::Map.new(points)
 # => #<Gradient Map #<Point 0 #1e5799ff> #<Point 49.0 #2989d805> #<Point 50.0 #2583d100> #<Point 51.0 #207cca05> #<Point 100 #7db9e8ff>>
 ```
 
+### Interpolation
+One can find the color and opacity at an arbitrary location using the `interpolate` method, which returns a new `Gradient::Point`.
+
+```ruby
+map = Gradient::Map.new(
+        Gradient::Point.new(0, Color::RGB.new(0, 128, 255), 1.0),
+        Gradient::Point.new(1, Color::RGB.new(255, 128, 0), 0.0)
+      )
+map.interpolate(0.5)
+# => #<Point 50.0 #80808080>
+```
+
 ## Installation
 Add this line to your application's Gemfile:
 
