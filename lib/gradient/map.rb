@@ -18,6 +18,16 @@ module Gradient
       "#<Gradient Map #{points.map(&:inspect).join(" ")}>"
     end
 
+    def range
+      @range ||= 
+        begin
+          ends = [:first, :last]
+            .map { |method| points.send(method) }
+            .map(&:location)
+          Range.new(*ends)
+        end
+    end
+
     def to_css(**args)
       @css_printer ||= Gradient::CSSPrinter.new(self)
       @css_printer.css(**args)

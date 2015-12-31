@@ -20,6 +20,17 @@ RSpec.describe Gradient::Map do
 
   end
 
+  describe '.range' do
+
+    it 'returns a Range' do
+      expect(map.range).to be_a Range
+    end
+
+    it 'reports the correct range' do
+      expect(map.range).to eq (0.0..1.0)
+    end
+  end
+
   describe ".deserialize" do
     it "returns a point with the right attributes" do
       deserialized_map = described_class.deserialize([
