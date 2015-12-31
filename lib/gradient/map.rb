@@ -55,8 +55,9 @@ module Gradient
     private 
 
     def interpolate_points(point_left, point_right, location)
-      color_left, color_right = [point_left, point_right].map(&:color)
-      location_left, location_right = [point_left, point_right].map(&:location)
+      points = [point_left, point_right]
+      color_left, color_right = points.map(&:color)
+      location_left, location_right = points.map(&:location)
       separation = location_right - location_left
       if separation == 0.0 then
         point_right.dup
