@@ -63,7 +63,7 @@ Gradient::Map.deserialize([[0, "rgb", [221, 189, 82], 1.0], [1, "rgb", [89, 12, 
 # => #<Gradient Map #<Point 0 #ddbd52ff> #<Point 100 #590c484d>>
 ```
 
-### Import Adobe Photoshop Gradient (`.grd`) files
+### Import Adobe Photoshop gradient (`.grd`) files
 For many artists a preferred way of creating gradients is through Photoshop.
 You are able to parse `.grd` files and turn them in to a hash of `Gradient::Map` objects.
 
@@ -74,11 +74,11 @@ Gradient::GRD.read("./kiwi.grd")
 # }
 ```
 
-### Import SVG Gradients
+### Import SVG gradients
 SVG images can contain multiple gradients, and these can be extracted in the same
 way as for `.grd` files.
 ```ruby
-Gradient::GRD.read("./lemon-lime.svg")
+Gradient::SVG.read("./lemon-lime.svg")
 # => {
 #   "Lemon-Lime"=> #<Gradient Map #<Point 0.0 #ffff00ff> #<Point 20.0 #ffff00ff> #<Point 50.0 #00ff00ff> #<Point 80.0 #ffff00ff> #<Point 100.0 #ffff00ff>>}"
 # }
@@ -107,6 +107,18 @@ gradient = Gradient::Map.new(points)
 # => #<Gradient Map #<Point 0 #1e5799ff> #<Point 49.0 #2989d805> #<Point 50.0 #2583d100> #<Point 51.0 #207cca05> #<Point 100 #7db9e8ff>>
 ```
 
+### Interpolation
+One can find the color and opacity at an arbitrary location using the `at` method, which returns a new `Gradient::Point`.
+
+```ruby
+map = Gradient::Map.new(
+        Gradient::Point.new(0, Color::RGB.new(0, 128, 255), 1.0),
+        Gradient::Point.new(1, Color::RGB.new(255, 128, 0), 0.0)
+      )
+map.at(0.5)
+# => #<Point 50.0 #80808080>
+```
+
 ## Installation
 Add this line to your application's Gemfile:
 
@@ -131,7 +143,7 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
-Bug reports and pull requests are welcome on GitHub at https://github.com/zeeraw/gradient. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/zeeraw/gradient. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
