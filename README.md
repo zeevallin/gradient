@@ -108,14 +108,14 @@ gradient = Gradient::Map.new(points)
 ```
 
 ### Interpolation
-One can find the color and opacity at an arbitrary location using the `interpolate` method, which returns a new `Gradient::Point`.
+One can find the color and opacity at an arbitrary location using the `at` method, which returns a new `Gradient::Point`.
 
 ```ruby
 map = Gradient::Map.new(
         Gradient::Point.new(0, Color::RGB.new(0, 128, 255), 1.0),
         Gradient::Point.new(1, Color::RGB.new(255, 128, 0), 0.0)
       )
-map.interpolate(0.5)
+map.at(0.5)
 # => #<Point 50.0 #80808080>
 ```
 

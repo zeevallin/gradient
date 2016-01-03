@@ -28,7 +28,7 @@ module Gradient
         end
     end
 
-    def interpolate(location, opts = {})
+    def at(location, opts = {})
       if range.include? location then
         if 0 == (i = points.find_index { |p| p.location >= location }) then
           points[0].dup
