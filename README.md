@@ -76,7 +76,8 @@ Gradient::GRD.read("./kiwi.grd")
 
 ### Import SVG gradients
 SVG images can contain multiple gradients, and these can be extracted in the same
-way as for `.grd` files.
+way as for [`.grd`](#import-adobe-photoshop-gradient-grd-files) files.
+
 ```ruby
 Gradient::SVG.read("./lemon-lime.svg")
 # => {
