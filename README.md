@@ -64,7 +64,7 @@ Gradient::Map.deserialize([[0, "rgb", [221, 189, 82], 1.0], [1, "rgb", [89, 12, 
 ```
 
 ### Import Adobe Photoshop gradient (`.grd`) files
-For many artists a preferred way of creating gradients is through Photoshop.
+For many artists, a preferred way of creating gradients is through Photoshop.
 You are able to parse `.grd` files and turn them in to a hash of `Gradient::Map` objects.
 
 ```ruby
