@@ -14,6 +14,18 @@ RSpec.describe Gradient::Map do
       expect(map.points[2]).to eq right_red
     end
 
+    it "sorts the points with repeated locations using a stable sort algorithm" do
+      points = [
+        Gradient::Point.new(0.0, Color::RGB.new(0, 255, 255), 1),
+        Gradient::Point.new(0.5, Color::RGB.new(255, 0, 0), 1),
+        Gradient::Point.new(0.5, Color::RGB.new(0, 0, 255), 1),
+        Gradient::Point.new(0.5, Color::RGB.new(0, 255, 0), 1),
+        Gradient::Point.new(1.0, Color::RGB.new(255, 0, 255), 1),
+      ]
+
+      expect(Gradient::Map.new(points).points).to eq points
+    end
+
     it "stores the point locations" do
       expect(map.locations).to eq [0, 0.5, 1]
     end

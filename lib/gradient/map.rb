@@ -10,7 +10,8 @@ module Gradient
     end
 
     def initialize(*points)
-      @points = points.flatten.sort
+      # Sort points using a stable sort algorithm
+      @points = points.flatten.sort_by.with_index { |x, idx| [x, idx] }
       @locations = @points.map { |point| point.location }
     end
 
