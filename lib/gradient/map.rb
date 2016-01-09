@@ -20,7 +20,7 @@ module Gradient
     end
 
     def range
-      @range ||= 
+      @range ||=
         begin
           ends = [:first, :last]
             .map { |method| points.send(method) }
@@ -52,7 +52,7 @@ module Gradient
       serialize
     end
 
-    private 
+    private
 
     def interpolate_points(point_left, point_right, location)
       points = [point_left, point_right]
@@ -69,7 +69,7 @@ module Gradient
                              weight)
         end
         color = Color::RGB.from_fraction(r, g, b)
-        opacity = interpolate_floats(point_left.opacity, 
+        opacity = interpolate_floats(point_left.opacity,
                                      point_right.opacity,
                                      weight)
         Point.new(location, color, opacity)
