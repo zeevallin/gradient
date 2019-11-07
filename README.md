@@ -1,4 +1,5 @@
 # Gradient
+[![Not Maintained](https://img.shields.io/maintenance/no/2016.svg)](https://github.com/zeeraw/gradient)
 [![Gem Version](https://badge.fury.io/rb/gradient.svg)](https://badge.fury.io/rb/gradient)
 [![Build Status](https://travis-ci.org/zeeraw/gradient.svg?branch=master)](https://travis-ci.org/zeeraw/gradient)
 
