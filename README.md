@@ -121,6 +121,17 @@ map.at(0.5)
 # => #<Point 50.0 #80808080>
 ```
 
+### Get hexadecimal color
+You can get the hexadecimal color from a `Gradient::Point` with `.color.hex`, example:
+
+```ruby
+map = Gradient::Map.new(
+  Gradient::Point.new(0, Color::RGB.new(255, 255, 255), 1.0),
+  Gradient::Point.new(1, Color::RGB.new(226, 82, 82), 1.0)
+)
+map.at(0.5).color.hex 
+```
+
 ## Installation
 Add this line to your application's Gemfile:
 
