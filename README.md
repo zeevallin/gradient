@@ -30,7 +30,7 @@ gradient.to_css(property: "border-image")
 # => "border-image:linear-gradient(to right, rgba(30,87,153,1.0) 0%, rgba(41,137,216,0.02) 49%, rgba(37,131,209,0.0) 50%, rgba(32,124,202,0.02) 51%, rgba(125,185,232,1.0) 100%);"
 ```
 
-If you want some more control of the css generation you can invoke the CSS Printer manually.
+If you want some more control of the [css generation](https://www.scaler.com/topics/css/) you can invoke the CSS Printer manually.
 
 ```ruby
 printer = Gradient::CSSPrinter.new(gradient)
